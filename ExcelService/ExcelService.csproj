@@ -4,15 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D27D2E26-12FA-4A2E-9F12-B849CCA06877}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>ExcelImportKit</RootNamespace>
-    <AssemblyName>ExcelImportKit</AssemblyName>
+    <ProjectGuid>{F4169C99-6009-486B-AC95-E2BB65BFE801}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ExcelService</RootNamespace>
+    <AssemblyName>ExcelService</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -48,24 +47,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="ErrorMessageHandler.cs" />
+    <Compile Include="ExcelImportConfigHandler.cs" />
+    <Compile Include="ImportError.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SampleImport.cs" />
-    <Compile Include="SampleImportService.cs" />
+    <Compile Include="ReflectMethodProvider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ErrorMessage.cfg.xml" />
-    <Content Include="ExcelImport.cfg.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ExcelService\ExcelService.csproj">
-      <Project>{f4169c99-6009-486b-ac95-e2bb65bfe801}</Project>
-      <Name>ExcelService</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
