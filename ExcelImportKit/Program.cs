@@ -10,6 +10,7 @@ namespace ExcelImportKit
     {
         static void Main(string[] args)
         {
+            Console.WriteLine();
         }
     }
 }
