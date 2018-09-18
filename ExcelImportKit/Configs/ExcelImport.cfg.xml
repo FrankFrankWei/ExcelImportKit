@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DataMapping>
+  <Talents dataStartRow="25" sheetIndex="0" entity="Gxrc.Model.BaseOn.OverseasTalents.TalentsImport, Gxrc.Model" checkEndCol="1">
+    <column name="EnterpriseId" property="EnterpriseId" col="1" type="System.String" regexp="\d+" unique="true"/>
+    <column name="Name" property="Name" col="2" type="System.String" required="true" unique="true"/>
+    <column name="BirthDate" property="BirthDate" col="3" type="System.String" required="true"/>
+    <column name="Gender" property="Gender" col="4" type="System.String" required="true" unique="true"/>
+    <column name="Nationality" property="Nationality" col="5" type="System.String" required="true" unique="true"/>
+    <column name="JobTitle" property="JobTitle" col="6" type="System.String" required="true" unique="true"/>
+    <column name="PerfessionalQualification" property="PerfessionalQualification" col="7" type="System.String" unique="true"/>
+    <column name="IDorPassportNumber" property="IDorPassportNumber" col="8" type="System.String" required="true" unique="true"/>
+    <column name="HighestDegree" property="HighestDegree" col="9" type="System.String" required="true" unique="true"/>
+    <column name="Major" property="Major" col="10" type="System.String" required="true" unique="true"/>
+    <column name="PresentEmployer" property="PresentEmployer" col="11" type="System.String" unique="true"/>
+    <column name="ContactAddress" property="ContactAddress" col="12" type="System.String" unique="true"/>
+    <column name="PhoneNumber" property="PhoneNumber" col="13" type="System.String" unique="true"/>
+    <column name="Email" property="Email" col="14" type="System.String" unique="true"/>
+    <column name="EducationBackground" property="EducationBackground" col="15" type="System.String" required="true" unique="true"/>
+    <column name="WorkExperience" property="WorkExperience" col="16" type="System.String" required="true" unique="true"/>
+    <column name="ResearchFields" property="ResearchFields" col="17" type="System.String" required="true" unique="true"/>
+    <column name="CareerHistoryInChina" property="CareerHistoryInChina" col="18" type="System.String" unique="true"/>
+    <column name="Willing" property="Willing" col="19" type="System.String" required="true" unique="true"/>
+    <column name="RecommendedAgency" property="RecommendedAgency" col="20" type="System.String" unique="true"/>
+    <column name="ContactPerson" property="ContactPerson" col="21" type="System.String" unique="true"/>
+    <column name="ContactInfo" property="ContactInfo" col="22" type="System.String" unique="true"/>
+    <column name="Industry" property="Industry" col="23" type="System.String" required="true" unique="true"/>
+  </Talents>
+</DataMapping>
