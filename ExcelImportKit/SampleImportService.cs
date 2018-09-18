@@ -19,13 +19,38 @@ namespace ExcelImportKit
 {
     public class SampleImportService
     {
-        private IList<SampleImport> ParseImport(Stream stream, string configName, IList<ImportError> errors, Func<IDictionary<string, List<SampleImport>>, SampleImport, IDictionary<int, ImportError>, bool> checkConflictFunc)
+        public IList<SampleImport> GetParsedPositionImport(Stream stream, IList<ImportError> errors)
+        {
+            var importList = ParseImport(stream, "Sample", errors);
+
+            if (importList.Count <= 0) return null;
+
+            FilterConflictData(importList, errors);
+
+            if (errors.Count > 0) LogImportErrors();
+
+            return importList;
+        }
+
+        private void LogImportErrors()
+        { //(new ExportErrorDataService()).SaveErrorXlsFile(savedFile, errors, lines.Item1, lines.Item2);
+
+        }
+
+
+        private void FilterConflictData(IList<SampleImport> importList, IList<ImportError> errors)
+        {
+            //TODO: group importList by unique key, grouped count > 1 meanings multiple records, mark them as error
+        }
+
+        private IList<SampleImport> ParseImport(Stream stream, string configName, IList<ImportError> errors)
         {
             var dataConfig = new ExcelImportConfigHandler().GetExcelImportDataConfig(configName);
 
             using (var p = new ExcelPackage(stream))
             {
-                var sheet = p.Workbook.Worksheets[0];
+                p.Compatibility.IsWorksheets1Based = true;
+                var sheet = p.Workbook.Worksheets[dataConfig.SheetIndex];
 
                 var entityList = new List<SampleImport>();
                 if (errors == null) errors = new List<ImportError>();
@@ -56,7 +81,8 @@ namespace ExcelImportKit
                     {
                         Type type = column.DataType;
                         var method = ReflectMethodProvider.Instance.GetCellValueMethod(type);
-                        var result = method.Invoke(sheet, new object[] { row, column.Col });
+                        //var result = method.Invoke(sheet, new object[] { row, column.Col });
+                        var result = method.Invoke(sheet.Cells[row, column.Col], null);
                         string resultStr = Convert.ToString(result);
 
                         if (column.Required)
@@ -114,47 +140,47 @@ namespace ExcelImportKit
                                 entity.IsError = true;
                                 continue;
                             }
-
                         }
 
-                        column.PropertyInfo.SetValue(entity, result, null);
-                    }
+                        if (column.ValueMapping)
+                        {
+                            if (column.DataType == typeof(string))
+                            {
+                                if (result == null) result = string.Empty;
+                                else
+                                    result = (result as string).Trim().ToUpper();
+                            }
 
-                    if (checkConflictFunc != null && checkConflictFunc(conflictData, entity, conflictErrors))
-                        entity.IsError = true;
+                            var mappingValue = column.GetMapingValue(result);
+                            if (mappingValue == null)
+                            {
+                                errors.Add(new ImportError
+                                {
+                                    Line = row,
+                                    ErrorMsg = ErrorMessageHandler.Instance.GetErrorMessage("MappingKeyNotExists", column.Name, result)
+                                });
+                                entity.IsError = true;
+                                continue;
+                            }
+                            else
+                            {
+                                // TODO: fastmember optimize
+                                column.PropertyInfo.SetValue(entity, mappingValue, null);
+                            }
+                        }
+                        else
+                        {
+                            // TODO: fastmember optimize
+                            column.PropertyInfo.SetValue(entity, result, null);
+                        }
+                    }
 
                     entityList.Add(entity);
                     row++;
                 }
 
-                foreach (var conflictError in conflictErrors.Values)
-                {
-                    conflictError.FillConflictErrorMsg();
-                    errors.Add(conflictError);
-                }
-
                 return entityList;
             }
-        }
-
-        public IList<SampleImport> GetParsedPositionImport(Stream stream, IList<ImportError> errors)
-        {
-            Func<IDictionary<string, List<SampleImport>>, SampleImport, IDictionary<int, ImportError>, bool> checkConflictFunc = (conflictData, talents, conflictErrors) =>
-            {
-                return CheckSampleImportDataConflict(conflictData, talents, conflictErrors);
-            };
-
-            var importList = ParseImport(stream, "Sample", errors, checkConflictFunc);
-
-            if (importList.Count <= 0)
-                return null;
-
-            return importList;
-        }
-
-        private bool CheckSampleImportDataConflict(IDictionary<string, List<SampleImport>> conflictData, SampleImport comparedEntity, IDictionary<int, ImportError> conflictErrors)
-        {
-            return true;
         }
     }
 }

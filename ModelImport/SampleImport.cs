@@ -17,11 +17,17 @@ namespace ModelImport
         public SampleImport()
         { }
 
-        public int Id { get; set; }
+        public int Age { get; set; }
         public string Name { get; set; }
         public DateTime Birthday { get; set; }
         public float Height { get; set; }
-        public double Money { get; set; }
-        public bool IsMale { get; set; }
+        public decimal Money { get; set; }
+        public bool Gender { get; set; }
+        public string GenderName => Gender ? "Male" : "Female";
+        /// <summary>
+        /// 1: Student  2: Staff 3: Soldier
+        /// </summary>
+        public int State { get; set; }
+        public string StateName { get { return State == 1 ? "Student" : State == 2 ? "Staff" : State == 3 ? "Soldier" : "not set"; } }
     }
 }

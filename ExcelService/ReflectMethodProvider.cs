@@ -23,7 +23,8 @@ namespace ExcelService
 
         private ReflectMethodProvider()
         {
-            _getCellValueMethodMaker = typeof(ExcelRange).GetMethod("GetValue", new Type[] { typeof(int), typeof(int) });
+            //_getCellValueMethodMaker = typeof(ExcelRange).GetMethod("GetValue", new Type[] { typeof(int), typeof(int) });
+            _getCellValueMethodMaker = typeof(ExcelRange).GetMethod("GetValue", System.Type.EmptyTypes);
             _getCellValueMethods = new Dictionary<Type, MethodInfo>();
 
             _setCellValueMethodMaker = typeof(ExcelRange).GetMethod("SetValue", new Type[] { typeof(int), typeof(int), typeof(object), typeof(int) });

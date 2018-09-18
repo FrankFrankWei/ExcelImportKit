@@ -15,20 +15,20 @@ namespace ExcelService
 {
     public class ErrorMessageHandler
     {
-        private Dictionary<string, string> errorMessages;
+        private Dictionary<string, string> _errorMessages;
 
         private ErrorMessageHandler()
         {
-            errorMessages = new Dictionary<string, string>();
+            _errorMessages = new Dictionary<string, string>();
             string configPath = GetConfigPath();
-            LoadConfig(configPath, errorMessages);
+            LoadConfig(configPath, _errorMessages);
         }
 
         private String GetConfigPath()
         {
             Uri baseUri = new Uri(System.Reflection.Assembly.GetCallingAssembly().CodeBase);
 
-            Uri sheetConfigUri = new Uri(baseUri, @"..\Configs\ErrorMessage.cfg.xml");
+            Uri sheetConfigUri = new Uri(baseUri, @"..\..\Configs\ErrorMessage.cfg.xml");
 
             return sheetConfigUri.LocalPath;
         }
@@ -63,12 +63,12 @@ namespace ExcelService
 
         public string GetErrorMessage(string errorCode, params object[] formatParams)
         {
-            if (errorMessages.ContainsKey(errorCode))
+            if (_errorMessages.ContainsKey(errorCode))
             {
                 if (formatParams != null && formatParams.Length > 0)
-                    return string.Format(errorMessages[errorCode], formatParams);
+                    return string.Format(_errorMessages[errorCode], formatParams);
                 else
-                    return errorMessages[errorCode];
+                    return _errorMessages[errorCode];
             }
             throw new ArgumentNullException(string.Format("couldn't find errorcode:{0}", errorCode));
         }

@@ -29,7 +29,7 @@ namespace ExcelService
         {
             Uri baseUri = new Uri(System.Reflection.Assembly.GetCallingAssembly().CodeBase);
 
-            Uri sheetConfigUri = new Uri(baseUri, @"..\Configs\ExcelImport.cfg.xml");
+            Uri sheetConfigUri = new Uri(baseUri, @"..\..\Configs\ExcelImport.cfg.xml");
 
             return sheetConfigUri.LocalPath;
         }
@@ -240,33 +240,33 @@ namespace ExcelService
 
         #endregion
 
-        private object valuemappings;
-        private MethodInfo containKeyMethod;
-        private MethodInfo getValueMethod;
-        private MethodInfo addMethod;
+        private object _valuemappings;
+        private MethodInfo _containKeyMethod;
+        private MethodInfo _getValueMethod;
+        private MethodInfo _addMethod;
 
         internal void InitValueMapping()
         {
             var dicyType = typeof(Dictionary<,>);
             Type[] typeArgs = { DataType, ValueType };
             var dictCreateype = dicyType.MakeGenericType(typeArgs);
-            valuemappings = Activator.CreateInstance(dictCreateype);
+            _valuemappings = Activator.CreateInstance(dictCreateype);
 
-            containKeyMethod = dictCreateype.GetMethod("ContainsKey", BindingFlags.Instance | BindingFlags.Public);
-            getValueMethod = dictCreateype.GetMethod("get_Item", BindingFlags.Instance | BindingFlags.Public);
-            addMethod = dictCreateype.GetMethod("Add", BindingFlags.Instance | BindingFlags.Public);
+            _containKeyMethod = dictCreateype.GetMethod("ContainsKey", BindingFlags.Instance | BindingFlags.Public);
+            _getValueMethod = dictCreateype.GetMethod("get_Item", BindingFlags.Instance | BindingFlags.Public);
+            _addMethod = dictCreateype.GetMethod("Add", BindingFlags.Instance | BindingFlags.Public);
         }
 
         internal void AddMappingValue(object key, object value)
         {
-            addMethod.Invoke(valuemappings, new object[] { key, value });
+            _addMethod.Invoke(_valuemappings, new object[] { key, value });
         }
 
         public object GetMapingValue(object key)
         {
-            if ((bool)containKeyMethod.Invoke(valuemappings, new object[] { key }))
+            if ((bool)_containKeyMethod.Invoke(_valuemappings, new object[] { key }))
             {
-                return getValueMethod.Invoke(valuemappings, new object[] { key });
+                return _getValueMethod.Invoke(_valuemappings, new object[] { key });
             }
             return null;
         }

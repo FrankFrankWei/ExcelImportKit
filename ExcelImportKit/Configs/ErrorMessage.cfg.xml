@@ -10,6 +10,7 @@
   <error code="OutOfLength" message="'{0}'的数据长度超出限制" />
   <error code="DataFormatError" message="'{0}'的数据格式不正确" />
   <error code="InvalidColumnValue" message="'{0}'的数据不正确" />
+  <error code="MappingKeyNotExists" message="'{0}'映射的键值'{1}'不存在" />
   <error code="InvalidDataFormatOrEmptyValue" message="'{0}'的数据为空或者格式不正确" />
   <!--master data-->
   <error code="PortNotExists" message="'{0}'不存在" />

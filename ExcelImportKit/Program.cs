@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ExcelService;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +12,18 @@ namespace ExcelImportKit
     {
         static void Main(string[] args)
         {
-            Console.WriteLine();
+            var fs = new FileStream(@"F:\\sampleImport.xlsx", FileMode.Open);
+            IList<ImportError> errors = new List<ImportError>();
+            var importList = new SampleImportService().GetParsedPositionImport(fs, errors);
+
+            if (errors.Count > 0)
+                errors.ToList().ForEach(item => Console.WriteLine($"{item.Line} - {item.ErrorMsg}"));
+
+            importList.Where(m => !m.IsError).ToList().ForEach(item => Console.WriteLine($"{item.Age} - {item.Name} - {item.Height} - " +
+                $"{item.GenderName} - {item.Birthday} - {item.Money} - {item.StateName}"));
+
+
+            Console.Read();
         }
     }
 }
