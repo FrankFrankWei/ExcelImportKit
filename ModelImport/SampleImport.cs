@@ -4,6 +4,7 @@
 ** desc:
 ******************************************************************/
 
+using ExcelService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace ModelImport
 {
-    public class SampleImport : ImportBase
+    public class SampleImport : ImportEntityBase
     {
         public SampleImport()
         { }

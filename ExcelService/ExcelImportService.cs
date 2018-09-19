@@ -1,11 +1,9 @@
 ﻿/******************************************************************
 ** auth: wei.huazhong
-** date: 9/17/2018 5:43:22 PM
+** date: 9/19/2018 6:01:08 PM
 ** desc:
 ******************************************************************/
 
-using ExcelService;
-using ModelImport;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
@@ -15,11 +13,11 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace ExcelImportKit
+namespace ExcelService
 {
-    public class SampleImportService
+    public class ExcelImportService<T> where T: ImportEntityBase
     {
-        public IList<SampleImport> GetParsedPositionImport(Stream stream, IList<ImportError> errors)
+        public IList<T> GetParsedPositionImport(Stream stream, IList<ImportError> errors)
         {
             var importList = ParseImport(stream, "Sample", errors);
 
@@ -38,12 +36,12 @@ namespace ExcelImportKit
         }
 
 
-        private void FilterConflictData(IList<SampleImport> importList, IList<ImportError> errors)
+        private void FilterConflictData(IList<T> importList, IList<ImportError> errors)
         {
             //TODO: group importList by unique key, grouped count > 1 meanings multiple records, mark them as error
         }
 
-        private IList<SampleImport> ParseImport(Stream stream, string configName, IList<ImportError> errors)
+        private IList<T> ParseImport(Stream stream, string configName, IList<ImportError> errors)
         {
             var dataConfig = new ExcelImportConfigHandler().GetExcelImportDataConfig(configName);
 
@@ -52,14 +50,14 @@ namespace ExcelImportKit
                 p.Compatibility.IsWorksheets1Based = true;
                 var sheet = p.Workbook.Worksheets[dataConfig.SheetIndex];
 
-                var entityList = new List<SampleImport>();
+                var entityList = new List<T>();
                 if (errors == null) errors = new List<ImportError>();
 
-                SampleImport entity;
+                T entity;
 
                 int row = dataConfig.DataStartRow;
 
-                IDictionary<string, List<SampleImport>> conflictData = new Dictionary<string, List<SampleImport>>();
+                IDictionary<string, List<T>> conflictData = new Dictionary<string, List<T>>();
                 IDictionary<int, ImportError> conflictErrors = new Dictionary<int, ImportError>();
 
                 while (true)
@@ -73,7 +71,7 @@ namespace ExcelImportKit
                             break;
                     }
 
-                    entity = Activator.CreateInstance<SampleImport>();
+                    entity = Activator.CreateInstance<T>();
                     entity.Line = row;
                     var columns = dataConfig.Columns;
 

@@ -49,6 +49,8 @@
   <ItemGroup>
     <Compile Include="ErrorMessageHandler.cs" />
     <Compile Include="ExcelImportConfigHandler.cs" />
+    <Compile Include="ExcelImportService.cs" />
+    <Compile Include="ImportEntityBase.cs" />
     <Compile Include="ImportError.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectMethodProvider.cs" />

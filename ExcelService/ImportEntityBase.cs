@@ -1,6 +1,6 @@
 ﻿/******************************************************************
 ** auth: wei.huazhong
-** date: 9/18/2018 12:03:27 PM
+** date: 9/19/2018 6:08:32 PM
 ** desc:
 ******************************************************************/
 
@@ -10,14 +10,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModelImport
+namespace ExcelService
 {
-    public class ImportBase
+    public class ImportEntityBase
     {
-        public ImportBase()
-        { }
         public int Line { get; set; }
         public bool IsError { get; set; }
-
     }
 }
