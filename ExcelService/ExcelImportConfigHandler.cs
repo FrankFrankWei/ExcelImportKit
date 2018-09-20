@@ -89,22 +89,6 @@ namespace ExcelService
                 {
                     column.Regexp = e.Attribute("regexp").Value;
                 }
-                if (e.Attribute("coltorow") != null)
-                {
-                    column.ColToRow = bool.Parse(e.Attribute("coltorow").Value);
-                }
-                if (e.Attribute("headerproperty") != null)
-                {
-                    column.HeaderPropertyInfo = entityType.GetProperty(e.Attribute("headerproperty").Value);
-                }
-                if (e.Attribute("headervalue") != null)
-                {
-                    column.HeaderValue = e.Attribute("headervalue").Value;
-                }
-                if (e.Attribute("headertype") != null)
-                {
-                    column.HeaderDataType = Type.GetType(e.Attribute("headertype").Value);
-                }
                 if (e.Attribute("valuemapping") != null)
                 {
                     column.ValueMapping = bool.Parse(e.Attribute("valuemapping").Value);
@@ -135,17 +119,11 @@ namespace ExcelService
 
         class Nested
         {
-            public static ExcelImportConfigHandler instance;
-            static Nested()
-            {
-                if (instance == null)
-                    instance = new ExcelImportConfigHandler();
-            }
-            //static Nested() { }
-            //internal static readonly ExcelImportConfigHandler instance = new ExcelImportConfigHandler();
+            static Nested() { }
+            internal static readonly ExcelImportConfigHandler instance = new ExcelImportConfigHandler();
         }
 
-        public ExcelImportConfigHandler Instance
+        public static ExcelImportConfigHandler Instance
         {
             get
             {
@@ -226,10 +204,6 @@ namespace ExcelService
         public int Col { get; set; }
         public Type DataType { get; set; }
         public bool Required { get; set; }
-        public bool ColToRow { get; set; }
-        public PropertyInfo HeaderPropertyInfo { get; set; }
-        public string HeaderValue { get; set; }
-        public Type HeaderDataType { get; set; }
         public bool ValueMapping { get; set; }
         public Type ValueType { get; set; }
         public int MaxLength { get; set; }

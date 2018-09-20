@@ -23,9 +23,9 @@ namespace ExcelService
         /// <param name="stream"></param>
         /// <param name="errors"></param>
         /// <returns></returns>
-        public IList<T> GetParsedPositionImport(Stream stream, IList<ImportError> errors)
+        public IList<T> GetParsedPositionImport(Stream stream, IList<ImportError> errors, string cfgNodeName)
         {
-            var importList = ParseImport(stream, "Sample", errors);
+            var importList = ParseImport(stream, cfgNodeName, errors);
 
             if (importList.Count <= 0) return null;
 
@@ -49,7 +49,7 @@ namespace ExcelService
 
         private IList<T> ParseImport(Stream stream, string configName, IList<ImportError> errors)
         {
-            var dataConfig = new ExcelImportConfigHandler().GetExcelImportDataConfig(configName);
+            var dataConfig = ExcelImportConfigHandler.Instance.GetExcelImportDataConfig(configName);
 
             using (var p = new ExcelPackage(stream))
             {

@@ -16,10 +16,11 @@ namespace WebTest.Controllers
             IList<ImportError> errors = new List<ImportError>();
             IList<SampleImport> importList;
             var filePath = RootDirectoryHelper.GetFilePath("./Excels/sampleImport.xlsx");
+            var cfgNodeName = "Sample";
 
             using (var fs = new FileStream(filePath, FileMode.Open))
             {
-                importList = new ExcelImportService<SampleImport>().GetParsedPositionImport(fs, errors);
+                importList = new ExcelImportService<SampleImport>().GetParsedPositionImport(fs, errors, cfgNodeName);
             }
 
             //if (errors.Count > 0)

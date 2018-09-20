@@ -13,9 +13,5 @@
   <error code="MappingKeyNotExists" message="'{0}'映射的键值'{1}'不存在" />
   <error code="InvalidDataFormatOrEmptyValue" message="'{0}'的数据为空或者格式不正确" />
   <!--master data-->
-  <error code="PortNotExists" message="'{0}'不存在" />
-  <error code="VendorNotExists" message="'{0}'不存在" />
-  <error code="VehicleNotExists" message="系统找不到相关, {0}:'{1}'" />
-  <error code="ModelNotExsits" message="系统不存在对应项"/>
-  <error code="DuplicatedVin" message="重复" />
+  <error code="Duplicated" message="重复" />
 </errors>
