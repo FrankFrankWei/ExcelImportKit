@@ -123,13 +123,7 @@ namespace ExcelService
             internal static readonly ExcelImportConfigHandler instance = new ExcelImportConfigHandler();
         }
 
-        public static ExcelImportConfigHandler Instance
-        {
-            get
-            {
-                return Nested.instance;
-            }
-        }
+        public static ExcelImportConfigHandler Instance => (Nested.instance);
 
         public ExcelImportData GetExcelImportDataConfig(string importDataName)
         {
@@ -146,53 +140,21 @@ namespace ExcelService
 
     public class ExcelImportData
     {
-        public int SheetIndex
-        {
-            set;
-            get;
-        }
+        public int SheetIndex { set; get; }
 
-        public int DataStartRow
-        {
-            set;
-            get;
-        }
+        public int DataStartRow { set; get; }
 
-        public string Entity
-        {
-            set;
-            get;
-        }
+        public string Entity { set; get; }
 
-        public int CheckEndCol
-        {
-            set;
-            get;
-        }
+        public int CheckEndCol { set; get; }
 
-        public string CheckEndValue
-        {
-            set;
-            get;
-        }
+        public string CheckEndValue { set; get; }
 
-        public int FileTypeColumn
-        {
-            set;
-            get;
-        }
+        public int FileTypeColumn { set; get; }
 
-        public int TitleRow
-        {
-            set;
-            get;
-        }
+        public int TitleRow { set; get; }
 
-        public List<ExcelImportColumn> Columns
-        {
-            set;
-            get;
-        }
+        public List<ExcelImportColumn> Columns { set; get; }
     }
 
     public class ExcelImportColumn

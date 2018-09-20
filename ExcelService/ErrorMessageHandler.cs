@@ -25,10 +25,10 @@ namespace ExcelService
             LoadConfig(configPath, _errorMessages);
         }
 
-        private string GetConfigPath()
-        {
-            return RootDirectoryHelper.GetFilePath(@".\Configs\ErrorMessage.cfg.xml");
-        }
+        private string GetConfigPath() =>
+        (
+            RootDirectoryHelper.GetFilePath(@".\Configs\ErrorMessage.cfg.xml")
+        );
 
         private void LoadConfig(string path, Dictionary<string, string> errorMessages)
         {
@@ -50,13 +50,7 @@ namespace ExcelService
             internal static readonly ErrorMessageHandler instance = new ErrorMessageHandler();
         }
 
-        public static ErrorMessageHandler Instance
-        {
-            get
-            {
-                return Nested.instance;
-            }
-        }
+        public static ErrorMessageHandler Instance => (Nested.instance);
 
         public string GetErrorMessage(string errorCode, params object[] formatParams)
         {

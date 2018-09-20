@@ -24,8 +24,10 @@ namespace WindowsFromTest
                     importList = new ExcelImportService<SampleImport>().GetParsedPositionImport(fs, errors, cfgNodeName);
                 }
 
-                if (errors.Count > 0)
-                    errors.ToList().ForEach(item => Console.WriteLine($"{item.Line} - {item.ErrorMsg}"));
+                #region custom
+                if (errors.Count > 0) LogImportErrors();
+                FilterConflictData(importList, errors);
+                #endregion
 
                 importList.Where(m => !m.IsError).ToList().ForEach(
                     item => Console.WriteLine(
@@ -36,5 +38,9 @@ namespace WindowsFromTest
                 Console.Read();
             }
         }
+
+        private static void LogImportErrors() { }
+
+        private static void FilterConflictData(IList<SampleImport> importList, IList<ImportError> errors) { } 
     }
 }

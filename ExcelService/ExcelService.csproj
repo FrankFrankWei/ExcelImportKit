@@ -47,14 +47,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CallSiteCache.cs" />
     <Compile Include="ErrorMessageHandler.cs" />
     <Compile Include="ExcelImportConfigHandler.cs" />
     <Compile Include="ExcelImportService.cs" />
     <Compile Include="ImportEntityBase.cs" />
     <Compile Include="ImportError.cs" />
+    <Compile Include="MemberSet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectMethodProvider.cs" />
     <Compile Include="RootDirectoryHelper.cs" />
+    <Compile Include="TypeAccessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

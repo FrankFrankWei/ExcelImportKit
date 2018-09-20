@@ -23,29 +23,10 @@ namespace ExcelService
         /// <param name="stream"></param>
         /// <param name="errors"></param>
         /// <returns></returns>
-        public IList<T> GetParsedPositionImport(Stream stream, IList<ImportError> errors, string cfgNodeName)
-        {
-            var importList = ParseImport(stream, cfgNodeName, errors);
-
-            if (importList.Count <= 0) return null;
-
-            FilterConflictData(importList, errors);
-
-            if (errors.Count > 0) LogImportErrors();
-
-            return importList;
-        }
-
-        private void LogImportErrors()
-        { //(new ExportErrorDataService()).SaveErrorXlsFile(savedFile, errors, lines.Item1, lines.Item2);
-
-        }
-
-
-        private void FilterConflictData(IList<T> importList, IList<ImportError> errors)
-        {
-            //TODO: group importList by unique key, grouped count > 1 meanings multiple records, mark them as error
-        }
+        public IList<T> GetParsedPositionImport(Stream stream, IList<ImportError> errors, string cfgNodeName) =>
+        (
+             ParseImport(stream, cfgNodeName, errors)
+        );
 
         private IList<T> ParseImport(Stream stream, string configName, IList<ImportError> errors)
         {
@@ -78,6 +59,7 @@ namespace ExcelService
                     }
 
                     entity = Activator.CreateInstance<T>();
+                    var accessor = TypeAccessor.Create(typeof(T));
                     entity.Line = row;
                     var columns = dataConfig.Columns;
 
@@ -85,7 +67,6 @@ namespace ExcelService
                     {
                         Type type = column.DataType;
                         var method = ReflectMethodProvider.Instance.GetCellValueMethod(type);
-                        //var result = method.Invoke(sheet, new object[] { row, column.Col });
                         var result = method.Invoke(sheet.Cells[row, column.Col], null);// TODO: use delegate
                         string resultStr = Convert.ToString(result);
 
@@ -168,14 +149,12 @@ namespace ExcelService
                             }
                             else
                             {
-                                // TODO: fastmember optimize
-                                column.PropertyInfo.SetValue(entity, mappingValue, null);
+                                accessor[entity, column.Name] = mappingValue;
                             }
                         }
                         else
                         {
-                            // TODO: fastmember optimize
-                            column.PropertyInfo.SetValue(entity, result, null);
+                            accessor[entity, column.Name] = result;
                         }
                     }
 
