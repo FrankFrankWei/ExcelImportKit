@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DataMapping>
+  <!--sheet index starts by 1-->
+  <Sample dataStartRow="2" sheetIndex="1" entity="ModelImport.SampleImport, ModelImport" checkEndCol="1">
+    <column name="Age" property="Age" col="1" type="System.Int32" regexp="\d+" />
+    <column name="Name" property="Name" col="2" type="System.String" unique="true"/>
+    <column name="Birthday" property="Birthday" col="3" type="System.Nullable`1[[System.DateTime]]" />
+    <column name="Height" property="Height" col="4" type="System.Single" />
+    <column name="Money" property="Money" col="5" type="System.Decimal" />
+    <column name="Gender" property="Gender" col="6" type="System.String" valuemapping="true" valuetype="System.Boolean">
+      <mappings>
+        <!--default value-->
+        <mapping key="" value="false"/>
+        <mapping key="MALE" value="true"/>
+        <mapping key="FEMALE" value="false"/>
+      </mappings>
+    </column>
+    <column name="State" property="State" col="7" type="System.String" valuemapping="true" valuetype="System.Int32">
+      <mappings>
+        <!--default value-->
+        <mapping key="" value="0"/>
+        <mapping key="STUDENT" value="1"/>
+        <mapping key="STAFF" value="2"/>
+        <mapping key="SOLDIER" value="3"/>
+      </mappings>
+    </column>
+  </Sample>
+</DataMapping>

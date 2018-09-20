@@ -1,0 +1,43 @@
+﻿@model IList<ModelImport.SampleImport>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>ASP.NET</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+<div class="row">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Height</th>
+                <th>Money</th>
+                <th>Gender</th>
+                <th>State</th>
+                <th>Birthday</th> 
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ToList())
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Age</td>
+                    <td>@item.Height</td>
+                    <td>@item.Money</td>
+                    <td>@item.Gender</td>
+                    <td>@item.State</td>
+                    <td>@item.Birthday</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+</div>

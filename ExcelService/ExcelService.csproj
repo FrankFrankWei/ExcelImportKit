@@ -54,6 +54,7 @@
     <Compile Include="ImportError.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectMethodProvider.cs" />
+    <Compile Include="RootDirectoryHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

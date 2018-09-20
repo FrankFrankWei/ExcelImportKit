@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -25,13 +26,9 @@ namespace ExcelService
             LoadConfig(configPath, importDatas);
         }
 
-        private String GetConfigPath()
+        private string GetConfigPath()
         {
-            Uri baseUri = new Uri(System.Reflection.Assembly.GetCallingAssembly().CodeBase);
-
-            Uri sheetConfigUri = new Uri(baseUri, @"..\..\Configs\ExcelImport.cfg.xml");
-
-            return sheetConfigUri.LocalPath;
+            return RootDirectoryHelper.GetFilePath(@".\Configs\ExcelImport.cfg.xml");
         }
 
         private void LoadConfig(string path, Dictionary<string, ExcelImportData> importDatas)

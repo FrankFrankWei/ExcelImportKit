@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<errors>
+  <!--common-->
+  <error code="UploadSucceed" message="上传成功" />
+  <error code="UploadFailed" message="上传失败" />
+  <error code="ExtensionInvalid" message="文件格式不正确,请选择 xlsx 格式的文件!" />
+  <error code="FileTypeInvalid" message="上传的文件类型不正确！" />
+  <error code="ConflictRow" message="数据与行'{0}'的数据重复且不一致" />
+  <error code="EmptyColumnValue" message="'{0}'的数据为空" />
+  <error code="OutOfLength" message="'{0}'的数据长度超出限制" />
+  <error code="DataFormatError" message="'{0}'的数据格式不正确" />
+  <error code="InvalidColumnValue" message="'{0}'的数据不正确" />
+  <error code="MappingKeyNotExists" message="'{0}'映射的键值'{1}'不存在" />
+  <error code="InvalidDataFormatOrEmptyValue" message="'{0}'的数据为空或者格式不正确" />
+  <!--master data-->
+  <error code="PortNotExists" message="'{0}'不存在" />
+  <error code="VendorNotExists" message="'{0}'不存在" />
+  <error code="VehicleNotExists" message="系统找不到相关, {0}:'{1}'" />
+  <error code="ModelNotExsits" message="系统不存在对应项"/>
+  <error code="DuplicatedVin" message="重复" />
+</errors>

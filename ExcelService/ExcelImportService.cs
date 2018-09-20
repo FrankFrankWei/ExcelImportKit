@@ -15,8 +15,14 @@ using System.Threading.Tasks;
 
 namespace ExcelService
 {
-    public class ExcelImportService<T> where T: ImportEntityBase
+    public class ExcelImportService<T> where T : ImportEntityBase
     {
+        /// <summary>
+        /// will close stream after read data
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="errors"></param>
+        /// <returns></returns>
         public IList<T> GetParsedPositionImport(Stream stream, IList<ImportError> errors)
         {
             var importList = ParseImport(stream, "Sample", errors);
@@ -80,7 +86,7 @@ namespace ExcelService
                         Type type = column.DataType;
                         var method = ReflectMethodProvider.Instance.GetCellValueMethod(type);
                         //var result = method.Invoke(sheet, new object[] { row, column.Col });
-                        var result = method.Invoke(sheet.Cells[row, column.Col], null);
+                        var result = method.Invoke(sheet.Cells[row, column.Col], null);// TODO: use delegate
                         string resultStr = Convert.ToString(result);
 
                         if (column.Required)
